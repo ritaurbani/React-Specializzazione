@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+    <!-- aggiungo style -->
+    <style>
+        .modal-container {
+            position: fixed;
+            /* container grande quanto tutta la pagina */
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            /* con sfondo nero 75% opacita per vedere attraverso */
+            background-color: rgb(0, 0, 0, 0.75);
+            /* flexa al centro asse x e asse y il suo contenuto ce e la nostra modale*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* modale e un figlio diretto di section quindi guadagna il suo colore so whatch out */
+        /* spostare modal fuori da sectio e metterlo come figlio diretto di main */
+        .modal {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            /* puoi aggiungere transizioni */
+        }
+
+        section{
+            color:white;
+            opacity: .5;
+            background-color: red;
+        /* width e trasform e un modo per centrare */
+        width: 50%;
+            transform: translate(50%,50%);
+        }
+         .contenuto-espandibile{
+            background-color: blanchedalmond;
+            padding: 20px;
+            color: black;
+            border-radius: 5px;
+         }
+    </style>
+
+    <script type="text/babel">
+        const { useState } = React;
+        //ReactDOM e l oggetto che automaticamente viene creato quando inport lo script cdn react-dom development
+        const { createPortal } = ReactDOM
+        //componente modale
+        function Modal({
+            //destructuring delle props e valori di default:
+            title = "Ttolo Modale",
+            content = "contenuto modale",
+            show = false,//Il modale è nascosto di default
+            onClose = () => { } //onClose non viene passato, usa una funzione vuota
+        }) 
+        
+        {
+            return show && (
+                <div className="modal-container">
+                    <div className="modal">
+                        <h2>{title}</h2>
+                        <p>{content}</p>
+                        <button onClick={onClose}>Close</button>
+                    </div>
+                </div>
+            )
+        }
+        //PORTAL
+        //alternativa se usiamo PORTAL(importalo sopra)-passiamo componente, 
+        // dove mostrarlo(document.body) - se show true ritorna un invocazione di createportal dove passo
+        //e l elemento dove renderizzarlo(sotto l elemento specifico in cui e stato renderizzato tutto il nostro react)
+        // {
+        //         return show && createPortal(
+        //             <div className="modal-container">
+        //                 <div className="modal">
+        //                     <h2>{title}</h2>
+        //                     <p>{content}</p>
+        //                     <button onClick={onClose}>Close</button>
+        //                 </div>
+        //             </div>,
+        //             document.body
+        //         )
+        //     }
+
+        const ReactApp = () => {
+
+            const [show, setShow] = useState(false)
+            return (
+                //voglio accordion che si puo aprire e chiudere, quando chiuso mostra solo h1,
+                //quando aperto mostra tutto il contenuto del div
+                <details>
+                    <summary>
+                        <strong>Applicazione React</strong>
+                    </summary>
+                    <div className="contenuto-espandibile">
+                        <button onClick={()=> {setShow(true)}}>Open</button>
+                         <section>
+                             <h2>Section title</h2>
+                             <Modal
+                                 title= "titolo modal"
+                                 content = "welcome to modal"
+                                 show={show}//deve essere dinamico quindi creo uno stato e lo passo qui
+                                 onClose={() => {setShow(false)}}
+                             />
+
+                         </section>
+                    </div>
+                </details>
+
+                // <main>
+                //     <h1>Applicazione React</h1>
+                //     <button onClick={() => { setShow(true) }}>Open</button>
+                //     <section>
+                //         <h2>Section title</h2>
+                //         <Modal
+                //             title="titolo modal"
+                //             content="welcome to modal"
+                //             show={show}//deve essere dinamico quindi creo uno stato e lo passo qui
+                //             onClose={() => { setShow(false) }}
+                //         />
+
+                //     </section>
+                // </main>
+            )
+        }
+    </script>
+    <script type="text/babel">
+        const { createRoot } = ReactDOM;
+
+        const elementoSpecifico = document.querySelector(".elemento-specifico");
+        console.log(elementoSpecifico)
+
+        const root = createRoot(elementoSpecifico)
+        root.render(<ReactApp />)
+
+    </script>
+</head>
+
+<body>
+
+    <div class="elemento-specifico"></div>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- quest script ci da accesso a oggetto react(linea ) -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- quest script ci da accesso a oggetto React-Dom -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+    <script type="text/babel">
+    //dire a balbel di controllare questo script e di permetterci di usare sintassi jsx
+    //se vogliamo usare usestate dobbiamo destrutturarcelo da oggetto react 
+    const {useState} = React;
+    //reactapp e una funzione
+    const ReactApp = () => {
+        const [count, setCount] = useState(0)
+        const incrementa = () => setCount(curr => curr +1) <!--anche count + 1-->
+        return (
+            <main>
+                <h1>Applicazione React</h1>
+                <p>Count: {count}</p>
+                <button onClick={incrementa}>Incrementa</button>
+            </main>
+        )
+    }
+    </script>
+    <script type="text/babel">
+        //destrutturiamo questa da reactDom
+        const { createRoot } = ReactDOM;
+        //reccogliamo il nostro elemento specifico (che ha come classe=elementoo specifico)
+        const elementoSpecifico = document.querySelector(".elemento-specifico");
+        console.log(elementoSpecifico)
+        //ora creiamo la nostra root uguale a cio che ci ritorna createRoot a cui passiamo l elemento in cui vogliamo creare la nostra root di react
+        //root e un oggetto molto complesso, react-doom root, ci interessa solo un metodo: render, render e una funzione
+        //vuole che gli passiamo children: gli elementi/componenti che vogliamo montare dentro l elemento in cui abbiamo creato la root
+        const root = createRoot(elementoSpecifico)
+        console.log(root)        
+        root.render(<ReactApp/>) //vogliamo renderizzare la reactapp(si puo chiamare come vogliamo)
+
+        //Ora abbiamo caricato la nostra applicazione react, ora in pagina vedremo il counter
+        //Siamo riusciti a creare un componente react e montarlo e usare le sue dinamicita come usestatein html
+    </script>
+</head>
+<body>
+    <!-- per montare il componente ReactApp e vedere qualcosa in pagina, 
+    devo avere un punto specifico, quindi creo elemento specifico vuoto inizialmente -->
+    <div class="elemento-specifico"></div>
+</body>
+</html>
