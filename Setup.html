@@ -27,11 +27,12 @@
     }
     </script>
     <script type="text/babel">
-        //destrutturiamo questa da reactDom
+        //destrutturiamo questa da reactDom -createRoot metodo di reactDOM
         const { createRoot } = ReactDOM;
         //reccogliamo il nostro elemento specifico (che ha come classe=elementoo specifico)
         const elementoSpecifico = document.querySelector(".elemento-specifico");
         console.log(elementoSpecifico)
+        //Dico a React prendi il componente che ho creato e renderizzmelo dentro l elemento html che ha come classe... -->
         //ora creiamo la nostra root uguale a cio che ci ritorna createRoot a cui passiamo l elemento in cui vogliamo creare la nostra root di react
         //root e un oggetto molto complesso, react-doom root, ci interessa solo un metodo: render, render e una funzione
         //vuole che gli passiamo children: gli elementi/componenti che vogliamo montare dentro l elemento in cui abbiamo creato la root

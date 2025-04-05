@@ -25,8 +25,7 @@
             align-items: center;
         }
 
-        /* modale e un figlio diretto di section quindi guadagna il suo colore so whatch out */
-        /* spostare modal fuori da sectio e metterlo come figlio diretto di main */
+
         .modal {
             background-color: white;
             padding: 20px;
@@ -34,20 +33,23 @@
             /* puoi aggiungere transizioni */
         }
 
-        section{
-            color:white;
+        /* modale e un figlio diretto di section quindi guadagna il suo colore so whatch out */
+        /* per migliorare la resa posso spostare modal fuori da section e metterlo come figlio diretto di main */
+        section {
+            color: white;
             opacity: .5;
             background-color: red;
-        /* width e trasform e un modo per centrare */
-        width: 50%;
-            transform: translate(50%,50%);
+            /* width e trasform e un modo per centrare */
+            width: 50%;
+            transform: translate(50%, 50%);
         }
-         .contenuto-espandibile{
+
+        .contenuto-espandibile {
             background-color: blanchedalmond;
             padding: 20px;
             color: black;
             border-radius: 5px;
-         }
+        }
     </style>
 
     <script type="text/babel">
@@ -61,9 +63,7 @@
             content = "contenuto modale",
             show = false,//Il modale è nascosto di default
             onClose = () => { } //onClose non viene passato, usa una funzione vuota
-        }) 
-        
-        {
+        }) {
             return show && (
                 <div className="modal-container">
                     <div className="modal">
@@ -79,7 +79,7 @@
         // dove mostrarlo(document.body) - se show true ritorna un invocazione di createportal dove passo
         //e l elemento dove renderizzarlo(sotto l elemento specifico in cui e stato renderizzato tutto il nostro react)
         // {
-        //         return show && createPortal(
+        //         return show && createPortal(//return show && ReactDOM.createPortal
         //             <div className="modal-container">
         //                 <div className="modal">
         //                     <h2>{title}</h2>
@@ -95,27 +95,28 @@
 
             const [show, setShow] = useState(false)
             return (
-                //voglio accordion che si puo aprire e chiudere, quando chiuso mostra solo h1,
+                // <details>
+                //alternativa usando details - voglio accordion che si puo aprire e chiudere, quando chiuso mostra solo(summary) h1,
                 //quando aperto mostra tutto il contenuto del div
                 <details>
                     <summary>
                         <strong>Applicazione React</strong>
                     </summary>
                     <div className="contenuto-espandibile">
-                        <button onClick={()=> {setShow(true)}}>Open</button>
-                         <section>
-                             <h2>Section title</h2>
-                             <Modal
-                                 title= "titolo modal"
-                                 content = "welcome to modal"
-                                 show={show}//deve essere dinamico quindi creo uno stato e lo passo qui
-                                 onClose={() => {setShow(false)}}
-                             />
+                        <button onClick={() => { setShow(true) }}>Open</button>
+                        <section>
+                            <h2>Section title</h2>
+                            <Modal
+                                title="titolo modal"
+                                content="welcome to modal"
+                                show={show}//deve essere dinamico quindi creo uno stato e lo passo qui
+                                onClose={() => { setShow(false) }}
+                            />
 
-                         </section>
+                        </section>
                     </div>
                 </details>
-
+                // Alternativa senza usare details:
                 // <main>
                 //     <h1>Applicazione React</h1>
                 //     <button onClick={() => { setShow(true) }}>Open</button>
